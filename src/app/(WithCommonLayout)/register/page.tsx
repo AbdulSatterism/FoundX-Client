@@ -8,7 +8,7 @@ import Link from "next/link";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 
 const Register = () => {
-  const { mutate: handleUserRegistration, isPending } = useUserRegistration();
+  const { mutate: handleUserRegistration } = useUserRegistration();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const userData = {
