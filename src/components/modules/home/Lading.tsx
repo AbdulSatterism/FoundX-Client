@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/order
 import { Input } from "@nextui-org/input";
-import { SearchIcon } from "../../icons";
+import { SearchIcon } from "../../../assets/icons";
 
 export const Lading = async () => {
   return (

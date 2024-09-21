@@ -1,5 +1,6 @@
 "use client";
 
+import { protectedRoutes } from "@/src/constant";
 import { useUser } from "@/src/context/user.provider";
 import { logout } from "@/src/services/AuthService";
 import { Avatar } from "@nextui-org/avatar";
@@ -9,10 +10,11 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/dropdown";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function NavbarDropdown() {
   const router = useRouter();
+  const pathname = usePathname();
   const { setIsLoading: userLoading, user } = useUser();
 
   const handleNavigation = (pathname: string) => {
@@ -22,6 +24,10 @@ export default function NavbarDropdown() {
   const handleLogout = () => {
     logout();
     userLoading(true);
+
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
   };
 
   return (
