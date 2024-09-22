@@ -1,10 +1,19 @@
 /* eslint-disable prettier/prettier */
 
-const FoundItems = () => {
+import Container from "@/src/components/UI/Container";
+import Post from "@/src/components/UI/post";
+import axiosInstance from "@/src/lib/axiosInstance";
+import { TPost } from "@/src/types";
+
+const FoundItems = async () => {
+  const { data } = await axiosInstance.get(`/items`);
+
   return (
-    <div>
-      <h1>this is found page</h1>
-    </div>
+    <Container>
+      <div className="mx-auto my-3 max-w-[720px]">
+        {data?.data?.map((post: TPost) => <Post key={post?._id} post={post} />)}
+      </div>
+    </Container>
   );
 };
 
