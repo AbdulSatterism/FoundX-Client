@@ -1,15 +1,21 @@
 /* eslint-disable prettier/prettier */
 
+import Filtering from "@/src/components/modules/foundItems/Filtering";
 import Container from "@/src/components/UI/Container";
 import Post from "@/src/components/UI/post";
 import axiosInstance from "@/src/lib/axiosInstance";
 import { TPost } from "@/src/types";
 
-const FoundItems = async () => {
-  const { data } = await axiosInstance.get(`/items`);
+const FoundItems = async ({ searchParams }: { searchParams: any }) => {
+  const params = new URLSearchParams(searchParams);
+
+  const { data } = await axiosInstance.get(`/items`, {
+    params: { searchTerm: params.get("query") },
+  });
 
   return (
     <Container>
+      <Filtering />
       <div className="mx-auto my-3 max-w-[720px]">
         {data?.data?.map((post: TPost) => <Post key={post?._id} post={post} />)}
       </div>
